@@ -1,0 +1,26 @@
+# Ignore development files and directories
+node_modules/
+dist/
+build/
+src/
+
+# Ignore configuration files
+*.config.js
+*.env
+
+# Ignore version control files
+.git/
+.gitignore
+
+# Ignore build artifacts
+*.log
+*.zip
+*.tar.gz
+
+# Ignore documentation files
+docs/
+
+# Ignore test files
+test/
+tests/
+__tests__/
