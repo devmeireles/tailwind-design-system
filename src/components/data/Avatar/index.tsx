@@ -1,12 +1,13 @@
 import classNames from "classnames";
 import React from "react";
+import { Colors, GenericSizes } from "../../../utils/types";
 
 export interface AvatarProps
   extends React.HTMLAttributes<HTMLDivElement | HTMLImageElement> {
   imageUrl?: string;
   altText: string;
-  size?: "small" | "medium" | "large";
-  color?: "primary" | "secondary" | "danger" | "warning" | "success";
+  size?: GenericSizes;
+  color?: Colors;
 }
 
 const Avatar: React.FC<AvatarProps> = ({

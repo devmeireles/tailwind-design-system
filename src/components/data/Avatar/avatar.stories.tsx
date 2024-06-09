@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import Avatar from "./";
 
-const meta = {
+const meta: Meta<typeof Avatar> = {
   title: "Data/Avatar",
   component: Avatar,
   parameters: {
@@ -24,7 +24,7 @@ const meta = {
     },
   },
   args: { onClick: fn() },
-} as Meta<typeof Avatar>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
