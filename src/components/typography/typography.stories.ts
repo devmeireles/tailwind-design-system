@@ -3,6 +3,10 @@ import Typography from ".";
 const meta = {
   title: "Typography",
   component: Typography,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
   argvariants: {
     tag: {
       control: {
