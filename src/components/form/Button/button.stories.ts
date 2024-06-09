@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import Button from ".";
 
-const meta = {
-  title: "Example/Button",
+const meta: Meta<typeof Button> = {
+  title: "Form/Button",
   component: Button,
   parameters: {
     layout: "centered",
@@ -36,9 +36,10 @@ const meta = {
     },
   },
   args: { onClick: fn() },
-} satisfies Meta<typeof Button>;
+};
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
@@ -59,6 +60,43 @@ export const Danger: Story = {
     children: "Danger Button",
     color: "danger",
     variant: "contained",
+  },
+};
+
+export const Outlined = {
+  args: {
+    children: "Outlined Button",
+    color: "warning",
+    variant: "outlined",
+  },
+};
+
+export const Text = {
+  args: {
+    children: "Text Button",
+    color: "success",
+    variant: "text",
+  },
+};
+
+export const Block = {
+  args: {
+    children: "Block Button",
+    block: true,
+  },
+};
+
+export const CustomClass = {
+  args: {
+    children: "Custom Class Button",
+    className: "custom-class",
+  },
+};
+
+export const Rounded = {
+  args: {
+    children: "Rounded Button",
+    rounded: true,
   },
 };
 
