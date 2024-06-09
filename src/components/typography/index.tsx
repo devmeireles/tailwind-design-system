@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-interface TypographyProps
+export interface TypographyProps
   extends React.HTMLAttributes<
     | HTMLParagraphElement
     | HTMLHeadingElement
@@ -26,13 +26,38 @@ interface TypographyProps
     | "link";
   weight?: "light" | "regular" | "medium" | "bold";
   children: React.ReactNode;
+  color?: string;
 }
+
+const variantClasses = {
+  h1: "text-4xl",
+  h2: "text-3xl",
+  h3: "text-2xl",
+  h4: "text-xl",
+  h5: "text-lg",
+  h6: "text-base",
+  subtitle1: "text-lg",
+  subtitle2: "text-base",
+  body1: "text-base",
+  body2: "text-sm",
+  caption: "text-xs",
+  overline: "text-xs",
+  link: "text-base text-blue-500 cursor-pointer",
+};
+
+const weightClasses = {
+  light: "font-light",
+  regular: "font-normal",
+  medium: "font-medium",
+  bold: "font-bold",
+};
 
 const Typography: React.FC<TypographyProps> = ({
   variant = "body1",
   weight = "regular",
   tag = "p",
   children,
+  color = "text-gray-800",
   ...props
 }) => {
   const Tag = tag as keyof JSX.IntrinsicElements;
@@ -40,26 +65,10 @@ const Typography: React.FC<TypographyProps> = ({
     <Tag
       {...props}
       className={classNames(
-        {
-          "text-4xl": variant === "h1",
-          "text-3xl": variant === "h2",
-          "text-2xl": variant === "h3",
-          "text-xl": variant === "h4",
-          "text-lg": ["h5", "subtitle"].includes(variant),
-          "text-base": ["h6", "subtitle2", "body1"].includes(variant),
-          "text-sm": variant === "body2",
-          "text-xs": ["caption", "overline"].includes(variant),
-        },
-        {
-          "font-light": weight === "light",
-          "font-normal": weight === "regular",
-          "font-medium": weight === "medium",
-          "font-bold": weight === "bold",
-        },
-        {
-          "text-blue-500 cursor-pointer": variant === "link",
-        },
-        "text-gray-800"
+        variantClasses[variant],
+        weightClasses[weight],
+        `${color}`,
+        props.className
       )}
     >
       {children}

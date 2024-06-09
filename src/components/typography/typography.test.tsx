@@ -2,35 +2,92 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import Typography from ".";
+import { render } from "@testing-library/react";
+import Typography, { TypographyProps } from ".";
 
 describe("Typography", () => {
-  test("renders a default typography", () => {
-    render(<Typography>Default Typography</Typography>);
-    const typography = screen.getByText("Default Typography");
+  const renderTypography = (props: TypographyProps) =>
+    render(<Typography {...props} />);
+
+  test("renders default typography", () => {
+    const { getByText } = renderTypography({
+      children: "Default Typography",
+    });
+    const typography = getByText("Default Typography");
     expect(typography).toBeInTheDocument();
+    expect(typography.tagName.toLowerCase()).toBe("p");
   });
 
-  test("renders a body1 typography", () => {
-    render(<Typography variant="body1">Typography</Typography>);
-    const typography = screen.getByText("Typography");
-    expect(typography).toHaveClass("text-base");
+  test("renders body1 typography", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      variant: "body1",
+    });
+    expect(container.firstChild).toHaveClass("text-base");
   });
 
-  test("renders a h1 typography", () => {
-    render(<Typography variant="h1">Typography</Typography>);
-    const typography = screen.getByText("Typography");
-    expect(typography).toHaveClass("text-4xl");
+  test("renders h1 typography", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      variant: "h1",
+    });
+    expect(container.firstChild).toHaveClass("text-4xl");
   });
 
-  test("renders a light typography", () => {
-    render(
-      <Typography variant="body1" weight="light">
-        Typography
-      </Typography>
+  test("renders light weight typography", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      variant: "body1",
+      weight: "light",
+    });
+    expect(container.firstChild).toHaveClass("font-light");
+  });
+
+  test("renders with custom tag", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      tag: "h2",
+      variant: "h2",
+    });
+    expect(container.firstChild).toHaveClass("text-3xl");
+    expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toBe("h2");
+  });
+
+  test("renders with custom color", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      color: "text-red-500",
+    });
+    expect(container.firstChild).toHaveClass("text-red-500");
+  });
+
+  test("renders link variant", () => {
+    const { container } = renderTypography({
+      children: "Clickable Text",
+      variant: "link",
+    });
+    expect(container.firstChild).toHaveClass("text-blue-500", "cursor-pointer");
+  });
+
+  test("renders with multiple classes", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      variant: "h1",
+      weight: "bold",
+      color: "text-green-700",
+    });
+    expect(container.firstChild).toHaveClass(
+      "text-4xl",
+      "font-bold",
+      "text-green-700"
     );
-    const typography = screen.getByText("Typography");
-    expect(typography).toHaveClass("font-light");
+  });
+
+  test("renders with default size when variant is invalid", () => {
+    const { container } = renderTypography({
+      children: "Typography",
+      variant: "invalid-variant" as never,
+    });
+    expect(container.firstChild).toHaveClass("font-normal");
   });
 });

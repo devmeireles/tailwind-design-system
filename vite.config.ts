@@ -13,7 +13,9 @@ export default defineConfig({
         "setupAfterEnv.ts",
         "**/*.test.ts",
         "**/*.test.tsx",
-        "**/*.stories.tsx",],
+        "**/*.stories.tsx",
+        "./src/utils/**",
+      ],
     }),
   ],
   build: {
